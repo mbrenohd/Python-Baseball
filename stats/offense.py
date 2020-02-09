@@ -21,7 +21,7 @@ replacements = {r'^S(.*)': 'single', r'^D(.*)': 'double', r'^T(.*)': 'triple', r
 hit_type = hits['event'].replace(replacements, regex=True)
 
 # Task 6
-hits = hits.assing(hit_type=hit_type)
+hits = hits.assign(hit_type=hit_type)
 
 # Task 7
 hits = hits.groupby(['inning', 'hit_type']).size().reset_index(name='count')
