@@ -17,13 +17,13 @@ for game_file in game_files:
 # Task 7
 games = pd.concat(game_frames)
 # Task 8
-games.loc['??', ['multi5']] = ''
+games.loc[games['multi5'] == '??', 'multi5'] = ''
 # Task 9
 identifiers = games['multi2'].str.extract(r'(.LS(\d{4})\d{5})')
 # Task 10
 identifiers = identifiers.fillna(method='ffill')
 # Task 11
-identifiers.columns(['game_id', 'year'])
+identifiers.columns = ['game_id', 'year']
 # Task 12
 games = pd.concat([games, identifiers], axis=1, sort=False)
 # Task 13
