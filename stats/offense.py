@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 
 # Task 1
 from data import games
+
 plays = games[games['type'] == 'play']
 
 plays.columns = ['type', 'inning', 'team', 'player', 'count', 'pitches', 'event', 'game_id', 'year']
@@ -26,7 +27,7 @@ hits = hits.assing(hit_type=hit_type)
 hits = hits.groupby(['inning', 'hit_type']).size().reset_index(name='count')
 
 # Task 8
-pd.Categorical(hits['hit_type'], ['single', 'double', 'triple', 'hr'])
+hits['hit_type'] = pd.Categorical(hits['hit_type'], ['single', 'double', 'triple', 'hr'])
 
 # Task 9
 hits = hits.sort_values(['inning', 'hit_type'])
@@ -37,3 +38,4 @@ hits = hits.pivot(index='inning', columns='hit_type', values='count')
 # Task 11
 hits.plot.bar(stacked=True)
 plt.show()
+
