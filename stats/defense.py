@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from frames import games, info, events
 
 # Task 2
-plays = games.query("type='play' & event != 'NP'")
+plays = games.query("type=='play' & event != 'NP'")
 
 # Task 3
 plays.columns = ['type', 'inning', 'team', 'player', 'count', 'pitches', 'event', 'game_id', 'year']
@@ -13,7 +13,7 @@ plays.columns = ['type', 'inning', 'team', 'player', 'count', 'pitches', 'event'
 pa = plays.iloc[plays['player'].shift() != plays['player'], ['year', 'game_id', 'inning', 'team', 'player']]
 
 # Task 5
-pa = pa.groupby(['year', 'game_id', 'team']).size().reset.index('PA')
+pa = pa.groupby(['year', 'game_id', 'team']).size().reset.index(name='PA')
 
 # Task 6
 events = events.set_index(['year', 'game_id', 'team', 'event_type'])
@@ -33,8 +33,9 @@ events_plus_pa = pd.merge(pa, events, set='outer', left_on=['year', 'game_id', '
 defense = pd.merge(events_plus_pa, info)
 
 # Task 11
-defense.loc[:, 'DER'] = 1 - ((defense.H + defense.ROE) / (defense.PA - defense.BB - defense.SO - defense.HBP - defense.HR))
-defense.year = pd.to_numeric(defense.iloc[:, 'year'])
+
+defense.loc[:, 'DER'] = 1 - ((defense['H'] + defense['ROE']) / (defense['PA'] - defense['BB'] - defense['SO'] - defense['HBP'] - defense['HR']))
+defense.loc[:, 'year'] = pd.to_numeric(defense['year'])
 
 # Task 12
 der = defense.loc(defense.year >= 1978, ['year', 'defense', 'DER'])
