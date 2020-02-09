@@ -5,7 +5,7 @@ import glob
 import pandas as pd 
 
 #Task 3
-game_files = glob.glob(os.path.join(os.getcwd(), 'games', '*.EVE')
+game_files = glob.glob(os.path.join(os.getcwd(), 'games', '*.EVE'))
 #Task 4
 game_files.sort()
 
@@ -36,4 +36,3 @@ games.head()
 
 
 
-    
