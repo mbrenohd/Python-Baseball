@@ -31,4 +31,4 @@ games = games.fillna(' ')
 # Task 14
 games.loc[:, ['type']] = pd.Categorical(games.loc[:, ['type']])
 # Task 15
-games.head()
+print(games.head())
